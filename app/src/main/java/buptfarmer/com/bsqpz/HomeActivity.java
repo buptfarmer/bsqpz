@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -25,12 +26,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.qq.e.ads.AdListener;
+import com.qq.e.ads.AdRequest;
+import com.qq.e.ads.AdSize;
+import com.qq.e.ads.AdView;
+
 
 public class HomeActivity extends ActionBarActivity {
 
     private ImageView mOriginalAvatar;
     private ImageView mPlusOne;
     private ImageView mSaveButton;
+    private AdView bannerAD;
+    private RelativeLayout mAdContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +67,7 @@ public class HomeActivity extends ActionBarActivity {
                 saveImageToGallery(HomeActivity.this, changedBitmap);
             }
         });
+        mAdContent = (RelativeLayout) findViewById(R.id.adcontent);
     }
 
     //设置裁剪图片的规格
@@ -75,6 +84,19 @@ public class HomeActivity extends ActionBarActivity {
         return intent;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        showBannerAD();
+    }
+
+    private void showBannerAD() {
+        this.bannerAD = new AdView(this, AdSize.BANNER, Constants.APP_ID, Constants.AD1_ID);
+        this.mAdContent.removeAllViews();
+        this.mAdContent.addView(bannerAD);
+        bannerAD.fetchAd(new AdRequest());
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0) {
