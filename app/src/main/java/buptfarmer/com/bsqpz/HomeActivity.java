@@ -1,5 +1,6 @@
 package buptfarmer.com.bsqpz;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -65,9 +66,18 @@ public class HomeActivity extends ActionBarActivity {
 
                 Bitmap changedBitmap = createPlusOneBitmap(mOriginalAvatar);
                 saveImageToGallery(HomeActivity.this, changedBitmap);
+                SharePhoto(HomeActivity.this);
             }
         });
         mAdContent = (RelativeLayout) findViewById(R.id.adcontent);
+    }
+
+    public void SharePhoto(final Activity activity) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        File file = new File(Environment.getExternalStorageDirectory(), "last.jpg");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+        shareIntent.setType("image/jpeg");
+        startActivity(Intent.createChooser(shareIntent, activity.getTitle()));
     }
 
     //设置裁剪图片的规格
