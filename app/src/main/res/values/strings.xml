@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">逼死强迫症</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">关于</string>
+    <string name="title_activity_about">AboutActivity</string>
+
+</resources>
